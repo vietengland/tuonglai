@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8">
+  <title>SIÊU MÁY TÍNH 2030</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f7;
+      color: #2e4053;
+      text-align: center;
+      padding-top: 50px;
+    }
+    h1 {
+      color: #2e86c1;
+    }
+    input {
+      padding: 8px;
+      margin: 5px;
+      width: 200px;
+      font-size: 14px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: #58d68d;
+      color: white;
+      border: none;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    button:disabled {
+      background-color: #aaa;
+      cursor: not-allowed;
+    }
+    #progress-container {
+      width: 60%;
+      margin: 20px auto;
+      background-color: #ddd;
+      border-radius: 10px;
+      height: 20px;
+      display: none;
+    }
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: #27ae60;
+      border-radius: 10px;
+    }
+    #result {
+      margin-top: 20px;
+      font-style: italic;
+      font-size: 18px;
+    }
+    #footer {
+      position: fixed;
+      bottom: 10px;
+      right: 10px;
+      font-size: 12px;
+      color: #95a5a6;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🧠 SIÊU MÁY TÍNH</h1>
+  <p>🔮 Dự đoán tương lai của bạn vào năm 2030</p>
+
+  <input type="text" id="name" placeholder="Nhập tên của bạn">
+  <br>
+  <input type="number" id="age" placeholder="Nhập tuổi hiện tại">
+  <br>
+  <button onclick="startPrediction()" id="predictBtn">👉 Dự đoán</button>
+
+  <div id="progress-container">
+    <div id="progress-bar"></div>
+  </div>
+
+  <div id="result"></div>
+
+  <div id="footer">Make by VietEngland</div>
+
+  <script>
+    function startPrediction() {
+      const name = document.getElementById('name').value.trim();
+      const age = parseInt(document.getElementById('age').value);
+      const result = document.getElementById('result');
+      const progressContainer = document.getElementById('progress-container');
+      const progressBar = document.getElementById('progress-bar');
+      const button = document.getElementById('predictBtn');
+
+      if (!name || isNaN(age)) {
+        alert("Vui lòng nhập đầy đủ họ tên và tuổi hợp lệ.");
+        return;
+      }
+
+      result.innerText = "";
+      progressContainer.style.display = "block";
+      progressBar.style.width = "0%";
+      button.disabled = true;
+
+      let i = 0;
+      const interval = setInterval(() => {
+        i++;
+        progressBar.style.width = `${(i / 60) * 100}%`;
+        if (i >= 60) {
+          clearInterval(interval);
+          const currentYear = new Date().getFullYear();
+          const futureAge = age + (2030 - currentYear);
+          result.innerText = `🌟 Tuổi của ${name} vào năm 2030 là: ${futureAge} tuổi.`;
+          button.disabled = false;
+        }
+      }, 100); // 60 bước * 100ms = 6s
+    }
+  </script>
+
+</body>
+</html>
